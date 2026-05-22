@@ -25,12 +25,11 @@ jobs:
       - name: Expand uploaded package
         if: ${{ hashFiles('singapore-soft-city-guide.zip') != '' }}
         run: |
-          unzip -o singapore-soft-city-guide.zip -d .
-          rm -f singapore-soft-city-guide.zip
+          unzip -o singapore-soft-city-guide.zip -d . -x ".github/*"
+          git rm -f singapore-soft-city-guide.zip
+          git add assets
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html styles.css app.js README.md assets .github
-          git add -u
           git commit -m "Expand site assets" || exit 0
           git push
 
